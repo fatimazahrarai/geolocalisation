@@ -1,31 +1,45 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="geolocalisation.list">
-      <field name="name">geolocalisation list</field>
-      <field name="model">geolocalisation.geolocalisation</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
-    -->
+    
+      <record model="ir.ui.view" id="geo_team_res_partner">
+            <field name="name">geo.team.res.partner.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="s_postion"/>
+                </field>
+            </field>
+        </record> 
 
-    <!-- actions opening views on models -->
-    <!--
+
+        <record id="geo_team_sale_order_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="s_postion"/>
+                </field>
+        </field>
+    </record>
+
+  </data>  
+</odoo>
+  
+
+    <!-- 
+    
     <record model="ir.actions.act_window" id="geolocalisation.action_window">
       <field name="name">geolocalisation window</field>
       <field name="res_model">geolocalisation.geolocalisation</field>
       <field name="view_mode">tree,form</field>
     </record>
-    -->
+   
 
-    <!-- server action to the one above -->
-    <!--
+     
     <record model="ir.actions.server" id="geolocalisation.action_server">
       <field name="name">geolocalisation server</field>
       <field name="model_id" ref="model_geolocalisation_geolocalisation"/>
@@ -38,23 +52,19 @@
         }
       </field>
     </record>
-    -->
+    
 
-    <!-- Top menu item -->
-    <!--
+   
     <menuitem name="geolocalisation" id="geolocalisation.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
+    
+    
     <menuitem name="Menu 1" id="geolocalisation.menu_1" parent="geolocalisation.menu_root"/>
     <menuitem name="Menu 2" id="geolocalisation.menu_2" parent="geolocalisation.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
+    
+    
     <menuitem name="List" id="geolocalisation.menu_1_list" parent="geolocalisation.menu_1"
               action="geolocalisation.action_window"/>
     <menuitem name="Server to list" id="geolocalisation" parent="geolocalisation.menu_2"
               action="geolocalisation.action_server"/>
-    -->
-  </data>
-</odoo>
+   
+  -->

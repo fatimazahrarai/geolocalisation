@@ -2,14 +2,24 @@
 
 from odoo import models, fields, api
 
-# class geolocalisation(models.Model):
-#     _name = 'geolocalisation.geolocalisation'
 
-#     name = fields.Char()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+class geo_team_client(models.Model):
+    _inherit = 'res.partner'
+
+    s_postion = fields.Char(string='Position geo',
+                            help='position de geolocalisation (Latitude Longitude décimales)',
+                            required=True,
+                            default='empty',
+                            readonly=False,
+                            stored=True)
+
+class geo_team_sale(models.Model):
+    _inherit = 'sale.order'
+
+    s_postion = fields.Char(related='partner_id.s_postion',
+                            string='Position geo',
+                            help='position de geolocalisation (Latitude Longitude décimales)',
+                            required=True,
+                            default='empty',
+                            readonly=False,
+                            stored=True)
