@@ -8,7 +8,9 @@
             <field name="priority" eval="20"/>
             <field name="arch" type="xml">
                 <field name="country_id" position="after">
-                    <field name="s_postion"/>
+                <field name="s_postion" class="target_for_run_iframe_google_map_link" onchange="run_iframe_google_map_link"/>
+                <iframe id="iframe_google_map" width="100%" height="250"></iframe>
+                <script type="text/javascript">run_iframe_google_map_link();</script>
                 </field>
             </field>
         </record> 
@@ -63,8 +65,34 @@
     </record>
 
 
- </odoo>
-  </data>  
+
+    <!-- geolocalisation team Assets -->
+    <template id="assets_backend" name="js assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript">
+                function run_iframe_google_map_link(){
+                    //get location text from the s_position input.
+                    var location = "empty"
+                    if(document.querySelector('.target_for_run_iframe_google_map_link').firstChild)//check if it is and edit form(meaning s_position is inside a span)
+                        location = document.querySelector('.target_for_run_iframe_google_map_link').firstChild.data;
+                    else//else it is a display form(meaning s_position is inside an input)
+                        location = document.querySelector('.target_for_run_iframe_google_map_link').value;
+                    //encode it as URI.
+                    var location_as_URI = encodeURIComponent(location);
+                    //set google map api.
+                    var key = 'AIzaSyDefCNxiEfC59BdR1SatwiqgCLZXJ6e4J4';
+                    //merge all var to creat the link
+                    var link = 'https://www.google.com/maps/embed/v1/place?key='+key+'&amp;q='+location_as_URI;
+                    //retrun the url to the iframe
+                    document.getElementById('iframe_google_map').src=link;
+                }
+            </script>
+        </xpath>
+    </template>
+
+</data>
+  </odoo>
+   
 
 <!--<record id="geo_team_sale_order_chatter_remove" model="ir.ui.view">
         <field name="name">sale.order.chatter.remove</field>
